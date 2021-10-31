@@ -29,7 +29,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::registerView(fn() => view('auth.register'));
 
         Fortify::loginView(function () {
-            return view('data');
+            return view('index');
         });
     }
 
