@@ -8,6 +8,12 @@
     <title>Document</title>
 </head>
 <body>
+<h1>welcome{{ $user }}</h1>
+
+<form method="post" action="/logout">
+    @csrf
+    <button>logout</button>
+</form>
 
 </body>
 </html>

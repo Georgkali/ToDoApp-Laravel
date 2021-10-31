@@ -11,10 +11,20 @@
 
 <h1>Login or <a href="/register">register</a></h1>
 <div>
-<form method="post" action="/login">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <label for="username">Username</label>
-    <input type="text" name="username">
+    <form method="post" action="/login">
+@csrf
+    <label for="email">E-mail</label>
+    <input type="text" name="email">
     <br> <br>
     <label for="password">Password</label>
     <input type="password" name="password">
