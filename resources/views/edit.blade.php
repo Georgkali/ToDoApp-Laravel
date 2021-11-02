@@ -1,13 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+<x-layout>
 <h1>Edit</h1>
 
 <h1> <small>{{$todo->id}}</small> {{$todo->title}} </h1>
@@ -19,5 +10,4 @@
     @method('delete')
     <button>Delete</button>
 </form>
-</body>
-</html>
+</x-layout>
