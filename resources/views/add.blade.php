@@ -23,13 +23,6 @@
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Content
                             </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
-                            </th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            </th>
 
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
@@ -39,9 +32,9 @@
                         <tbody class="bg-white divide-y divide-gray-200">
 
                         <tr>
-                            <form method="post" action="{{route('todos.update', $todo)}}">
+                            <form method="post"
+                                  action="{{ route('todos.store', ['todo' => new \App\Models\Todo()])  }}">
                                 @csrf
-                                @method('put')
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
 
@@ -49,39 +42,27 @@
                                             <div class="text-sm font-medium text-gray-900">
                                                 <input type="text" name="title" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300
                                placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500
-                               focus:border-indigo-500 focus:z-10 sm:text-sm" value="{{$todo->title}}">
+                               focus:border-indigo-500 focus:z-10 sm:text-sm">
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            <input type="text" name="content" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300
+                                        <input type="text" name="content" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300
                                placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500
-                               focus:border-indigo-500 focus:z-10 sm:text-sm" value="{{$todo->content}}">
-                                        </div>
+                               focus:border-indigo-500 focus:z-10 sm:text-sm">
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Active
-                </span>
-                                </td>
+
+
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-indigo-600 hover:text-indigo-900">Edit</button>
+
+                                    <button class="text-indigo-600 hover:text-indigo-900">Save</button>
+                                </td>
                             </form>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-
-
-                                <form method="post" action="{{route('todos.destroy', $todo)}}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="text-indigo-600 hover:text-indigo-900">Delete</button>
-                                </form>
-                            </td>
                         </tr>
+
 
                         </tbody>
                     </table>
@@ -89,4 +70,6 @@
             </div>
         </div>
     </div>
+
+
 </x-loggedin>

@@ -21,11 +21,11 @@ class TodoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('add');
     }
 
     /**
@@ -36,17 +36,21 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
         (new Todo([
             'title' => $request->get('title'),
             'content' => $request->get('content')
         ]))->save();
+
         return redirect()->route('data');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(Todo $todo)
@@ -54,27 +58,32 @@ class TodoController extends Controller
         return view('edit', ['todo' => $todo]);
     }
 
-    public function edit(Todo $todo)
+    public function edit(Request $request)
     {
 
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $todo->update([
+            'title' => $request->get('title'),
+            'content' => $request->get('content')
+        ]);
+
+        return redirect()->route('data');
     }
 
 
     public function destroy(Todo $todo)
     {
-        var_dump('iwashere');
         $todo->delete();
         return redirect()->route('data');
     }

@@ -6,10 +6,11 @@
 
     <title>Todo App</title>
 </head>
-<body class="font-sans bg-gray-400 text-white">
+<body class="font-sans bg-gray-100 text-white">
 <div>
 
 {{ $slot }}
+
 </div>
 </body>
 </html>
