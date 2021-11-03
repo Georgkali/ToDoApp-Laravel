@@ -13,27 +13,17 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    //  public function index()
-    //{
-    //    return view('data', ['todos' => Todo::all()]);
-    // }
+    public function index()
+    {
+        return view('data', ['todos' => Todo::all()->values()->reverse()]);
+    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -45,7 +35,7 @@ class TodoController extends Controller
             'content' => $request->get('content')
         ]))->save();
 
-        return redirect()->route('data');
+        return $this->index();
     }
 
     /**
@@ -58,10 +48,6 @@ class TodoController extends Controller
         return view('edit', ['todo' => $todo]);
     }
 
-    public function edit(Request $request)
-    {
-
-    }
 
     /**
      * Update the specified resource in storage.
@@ -78,13 +64,25 @@ class TodoController extends Controller
             'content' => $request->get('content')
         ]);
 
-        return redirect()->route('data');
+        return $this->index();
     }
 
 
     public function destroy(Todo $todo)
     {
         $todo->delete();
-        return redirect()->route('data');
+        return $this->index();
     }
+
+    /**
+     * @throws \Throwable
+     */
+    public function updateOrFail(Todo $todo)
+    {
+        $todo->updateOrFail([
+            'completed' => true
+        ]);
+        return $this->index();
+    }
+
 }
