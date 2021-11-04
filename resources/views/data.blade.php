@@ -57,9 +57,9 @@
                 </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <form method="post" action="{{route('todos.updateOrFail', $todo)}}">
+                                    <form method="post" action="{{route('done', $todo)}}">
                                         @csrf
-                                        @method('put')
+                                        @method('post')
                                         <button class="text-indigo-600 hover:text-indigo-900">Done</button>
                                     </form>
                                 </td>
