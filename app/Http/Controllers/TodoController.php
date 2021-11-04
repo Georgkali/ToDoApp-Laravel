@@ -74,14 +74,15 @@ class TodoController extends Controller
         return $this->index();
     }
 
-    /**
-     * @throws \Throwable
-     */
-    public function updateOrFail(Todo $todo)
+
+    public function done(Todo $todo)
     {
-        $todo->updateOrFail([
+
+        $todo->update([
             'completed' => true
         ]);
+
+        $todo->save();
         return $this->index();
     }
 
