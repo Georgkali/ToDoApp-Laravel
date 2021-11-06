@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -77,12 +78,7 @@ class TodoController extends Controller
 
     public function done(Todo $todo)
     {
-
-        $todo->update([
-            'completed' => true
-        ]);
-
-        $todo->save();
+        $todo->completed_at === null ? $todo->update(['completed_at' => Carbon::now()]) : $todo->update(['completed_at' => null]);
         return $this->index();
     }
 

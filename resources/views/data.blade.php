@@ -9,6 +9,10 @@
                         <tr>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Done
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Title
                             </th>
                             <th scope="col"
@@ -29,16 +33,32 @@
                             </th>
                         </tr>
                         </thead>
+
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($todos as $todo)
+
                             <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        <form method="post" action="{{route('done', ['todo' => $todo])}}">
+                                            @csrf
+                                            @method('post')
+                                            @if($todo->completed_at === null)
+                                                <input type="checkbox" onchange="submit()">
+                                            @else
+                                                <input type="checkbox" onchange="submit()" checked>
+                                            @endif
+                                        </form>
+                                    </div>
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
 
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900 ">
-                                                @if($todo->completed == 0)
-                                                {{$todo->title}}
+
+                                                @if($todo->completed_at === null)
+                                                    {{$todo->title}}
                                                 @else
                                                     <strike>{{$todo->title}}</strike>
                                                 @endif
@@ -57,7 +77,7 @@
                 </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <form method="post" action="{{route('done', $todo)}}">
+                                    <form method="post" action="{{route('done', ['todo' => $todo])}}">
                                         @csrf
                                         @method('post')
                                         <button class="text-indigo-600 hover:text-indigo-900">Done</button>
@@ -65,7 +85,8 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{{route('todos.show', $todo)}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="{{route('todos.show', $todo)}}"
+                                       class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                 </td>
                             </tr>
                         @endforeach
