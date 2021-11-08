@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
 class TodoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('data', ['todos' => Todo::all()->values()->reverse()]);
+        $todos = Todo::where('user_id', auth()->id())->orderByDesc('created_at')->paginate(10);
+
+        return view('data', ['todos' => $todos]);
+    }
+
+    public function bin()
+    {
+        $todos = Todo::onlyTrashed()->where('user_id', auth()->id())->paginate(10);
+
+        return view('bin', ['todos' => $todos]);
     }
 
 
@@ -31,10 +36,13 @@ class TodoController extends Controller
             'title' => 'required',
             'content' => 'required'
         ]);
-        (new Todo([
+        $todo = new Todo([
             'title' => $request->get('title'),
             'content' => $request->get('content')
-        ]))->save();
+        ]);
+        $todo->user()->associate(auth()->user());
+
+        $todo->save();
 
         return $this->index();
     }
@@ -72,6 +80,13 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         $todo->delete();
+        return $this->index();
+    }
+
+    public function force($todo)
+    {
+
+        Todo::onlyTrashed()->where('id', $todo)->forceDelete();
         return $this->index();
     }
 

@@ -21,11 +21,11 @@
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
+                                Created at
                             </th>
-                            <th scope="col">
-
-
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Completed at
                             </th>
 
                             <th scope="col" class="relative px-6 py-3">
@@ -73,16 +73,15 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Active
+                  {{$todo->created_at  }}
                 </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <form method="post" action="{{route('done', ['todo' => $todo])}}">
-                                        @csrf
-                                        @method('post')
-                                        <button class="text-indigo-600 hover:text-indigo-900">Done</button>
-                                    </form>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  {{$todo->completed_at}}
+                </span>
                                 </td>
+
 
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="{{route('todos.show', $todo)}}"
@@ -96,4 +95,5 @@
             </div>
         </div>
     </div>
+    {{$todos->links()}}
 </x-loggedin>

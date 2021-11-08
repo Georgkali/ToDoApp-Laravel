@@ -29,6 +29,7 @@
 
                             <a href="{{route('todos.create')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add</a>
 
+                            <a href="{{route('todos.bin')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Bin</a>
 
 
                         </div>

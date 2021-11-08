@@ -11,12 +11,13 @@ class TodoFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'id' => 1,
-            'title' => 'title',
-            'content' => 'content',
+            'user_id' => null,
+            'title' => $this->faker->word,
+            'content' => $this->faker->sentence,
+            'completed_at' => null
 
         ];
     }
