@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Database\Factories\UserFactory;
 
 class TodoControllerTest extends TestCase
 {
@@ -67,6 +68,23 @@ class TodoControllerTest extends TestCase
 
         $response = $this->post(route('todos.store'), ['id' => 1, 'title' => 'title', 'content' => 'content']);
         $response->assertStatus(200);
+    }
+
+    public function test_mark_todo_as_completed()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $todo = Todo::factory()->create([
+            'user_id' => $user->id,
+            'completed_at' => now()
+        ]);
+
+        $this->followingRedirects();
+
+        $response = $this->post(route('done', $todo));
+        $response->assertStatus(200);
+
     }
 
 
